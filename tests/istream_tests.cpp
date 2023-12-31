@@ -2,9 +2,10 @@
 #include "strategy.h"
 
 TEST_CASE( "istream methods work", "[istream]" ) {
-    std::stringstream str("123 12\n1");
+    std::string s = "123 12\n1";
+    std::stringbuf stringbuf(s);
 
-    strategy::istream cin(str.rdbuf());
+    strategy::istream cin(&stringbuf);
     int x = cin.readInt();
     cin.readSpace();
     int y = cin.readInt();
@@ -17,9 +18,10 @@ TEST_CASE( "istream methods work", "[istream]" ) {
 }
 
 TEST_CASE( "istream readLongLong works", "[istream]" ) {
-    std::stringstream str("1234567890 -1234567890\n");
+    std::string s = "1234567890 -1234567890\n";
+    std::stringbuf stringbuf(s);
 
-    strategy::istream cin(str.rdbuf());
+    strategy::istream cin(&stringbuf);
     auto x = cin.readLongLong(-1234567890, 1234567890);
     cin.readSpace();
     auto y = cin.readLongLong();
@@ -30,9 +32,10 @@ TEST_CASE( "istream readLongLong works", "[istream]" ) {
 }
 
 TEST_CASE( "istream readWord works", "[istream]" ) {
-    std::stringstream str("Hello, World!");
+    std::string s = "Hello, World!";
+    std::stringbuf stringbuf(s);
 
-    strategy::istream cin(str.rdbuf());
+    strategy::istream cin(&stringbuf);
     auto x = cin.readWord();
     cin.readSpace();
     auto y = cin.readWord("W[a-z]{4}!");
@@ -41,3 +44,10 @@ TEST_CASE( "istream readWord works", "[istream]" ) {
     REQUIRE(y == "World!");
 }
 
+TEST_CASE("istream read works", "[istream]") {
+    std::string s = "Hello, World!";
+    std::stringbuf stringbuf(s);
+
+    strategy::istream cin(&stringbuf);
+    REQUIRE(cin.read() == s);
+}

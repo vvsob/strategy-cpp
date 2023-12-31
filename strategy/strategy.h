@@ -18,6 +18,7 @@ namespace strategy {
     class istream : public std::istream {
         using std::istream::istream;
     public:
+        std::string read();
         int readInt();
         int readInt(int l, int r);
         long long readLongLong();
@@ -34,28 +35,38 @@ namespace strategy {
     };
 
     class ifstream : public istream {
+    private:
+        std::filebuf filebuf;
     public:
-        ifstream(const std::string& path) : istream(std::fstream(path).rdbuf()) {}
-        ifstream(const char* path) : istream(std::fstream(path).rdbuf()) {}
+        ifstream();
+        explicit ifstream(const std::string& path);
+        explicit ifstream(const char* path);
+        void close();
     };
 
     class ofstream : public ostream {
+    private:
+        std::filebuf filebuf;
     public:
-        ofstream(const std::string& path) : ostream(std::fstream(path).rdbuf()) {}
-        ofstream(const char* path) : ostream(std::fstream(path).rdbuf()) {}
+        ofstream();
+        explicit ofstream(const std::string& path);
+        explicit ofstream(const char* path);
+        void close();
     };
 
     struct CheckerJudgement {
         std::string status;
-        double points;
+        std::string message;
     };
-
-    int checker_main(int argc, char* argv[], CheckerJudgement (*check)(istream& input, istream& output, istream& answer, ostream& judgement));
 
     class Checker {
     protected:
-        istream input, output, answer;
-        ostream judgement;
+        ifstream input, output, answer;
+        ofstream judgement;
+
+        static CheckerJudgement WA(std::string message = "");
+        static CheckerJudgement OK(std::string message = "");
+
         virtual CheckerJudgement check() = 0;
     public:
         int main(int argc, char* argv[]);

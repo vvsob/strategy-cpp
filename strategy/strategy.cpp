@@ -1,6 +1,17 @@
 #include "strategy.h"
 
+#include <utility>
+
 namespace strategy {
+    std::string istream::read() {
+        std::string result;
+        char c;
+        while (get(c)) {
+            result.push_back(c);
+        }
+        return result;
+    }
+
     int istream::readInt() {
         int result;
         *this >> result;
@@ -71,18 +82,55 @@ namespace strategy {
     }
 
     int Checker::main(int argc, char **argv) {
-        input = ifstream(argv[0]);
-        output = ifstream(argv[1]);
-        answer = ifstream(argv[2]);
-        judgement = ofstream(argv[3]);
+        if (argc != 5) {
+            return 1;
+        }
+        input = ifstream(argv[1]);
+        output = ifstream(argv[2]);
+        answer = ifstream(argv[3]);
+        judgement = ofstream(argv[4]);
 
         auto judgement_info = check();
 
         judgement << "status: " << judgement_info.status << "\n";
-        if (judgement_info.points != NAN) {
-            judgement << "points: " << judgement_info.points << "\n";
-        }
+        judgement.close();
         return 0;
+    }
+
+    CheckerJudgement Checker::WA(std::string message) {
+        return CheckerJudgement("WA", std::move(message));
+    }
+
+    CheckerJudgement Checker::OK(std::string message) {
+        return CheckerJudgement("OK", std::move(message));
+    }
+
+    ifstream::ifstream() : filebuf(), istream(&filebuf) {}
+
+    ifstream::ifstream(const std::string &path) : filebuf(), istream(&filebuf) {
+        filebuf.open(path, std::ios::in);
+    }
+
+    ifstream::ifstream(const char* path) : filebuf(), istream(&filebuf) {
+        filebuf.open(path, std::ios::in);
+    }
+
+    void ifstream::close() {
+        filebuf.close();
+    }
+
+    ofstream::ofstream() : filebuf(), ostream(&filebuf) {}
+
+    ofstream::ofstream(const std::string &path) : filebuf(), ostream(&filebuf) {
+        filebuf.open(path, std::ios::out);
+    }
+
+    ofstream::ofstream(const char* path) : filebuf(), ostream(&filebuf) {
+        filebuf.open(path, std::ios::out);
+    }
+
+    void ofstream::close() {
+        filebuf.close();
     }
 }
 
