@@ -2,7 +2,7 @@
 #include "strategy.h"
 
 TEST_CASE( "random generates the same numbers", "[random]" ) {
-    strategy::random rnd1(1), rnd2(1);
+    strategy::random rnd1(1), rnd2(1); // NOLINT(*-msc51-cpp)
 
     REQUIRE(rnd1() == rnd2());
     REQUIRE(rnd1() == rnd2());

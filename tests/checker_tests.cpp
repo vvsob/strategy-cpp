@@ -18,8 +18,6 @@ TEST_CASE( "checker works", "[checker]" ) {
             }
             return OK();
         }
-
-        ~Checker() override = default;
     };
     char* args[] = {
             "checker",

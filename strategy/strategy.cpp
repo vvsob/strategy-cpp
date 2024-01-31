@@ -1,5 +1,7 @@
 #include "strategy.h"
-
+#include <iostream>
+#include <format>
+#include <regex>
 #include <utility>
 
 namespace strategy {
@@ -43,7 +45,7 @@ namespace strategy {
     }
 
     void istream::readSpace() {
-        char result = get();
+        char result = (char)get();
         if (result != ' ') {
             auto message = std::format("readSpace() check failed. Got {0}", result);
             throw read_format_error(message);
@@ -51,7 +53,7 @@ namespace strategy {
     }
 
     void istream::readEOL() {
-        char result = get();
+        char result = (char)get();
         if (result != '\n') {
             auto message = std::format("readEOL() check failed. Got {0}", result);
             throw read_format_error(message);
@@ -59,7 +61,7 @@ namespace strategy {
     }
 
     void istream::readEOF() {
-        char result = get();
+        char result = (char)get();
         if (result != -1) {
             auto message = std::format("readEOF() check failed.");
             throw read_format_error(message);
