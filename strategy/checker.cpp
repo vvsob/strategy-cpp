@@ -13,6 +13,9 @@ namespace strategy {
         auto judgement_info = check();
 
         judgement << "status: " << judgement_info.status << "\n";
+        if (!judgement_info.message.empty()) {
+            judgement << "message: " << judgement_info.message << "\n";
+        }
         judgement.close();
         return 0;
     }
