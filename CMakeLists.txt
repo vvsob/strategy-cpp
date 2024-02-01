@@ -9,5 +9,11 @@ find_package(Catch2 3 REQUIRED)
 
 add_executable(tests tests/istream_tests.cpp strategy/strategy.cpp
         tests/random_tests.cpp
-        tests/checker_tests.cpp)
+        tests/checker_tests.cpp
+        strategy/checker.h
+        strategy/fstream.h
+        strategy/fstream.h
+        strategy/errors.h
+        strategy/stream.h
+        strategy/random.h)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
