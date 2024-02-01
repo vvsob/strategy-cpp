@@ -18,5 +18,8 @@ add_executable(tests tests/istream_tests.cpp
         strategy/random.h
         strategy/stream.cpp
         strategy/checker.cpp
-        strategy/fstream.cpp)
+        strategy/fstream.cpp
+        strategy/generator.cpp
+        strategy/generator.h
+        tests/generator_tests.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
