@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "strategy.h"
+#include <strategy.h>
 
 TEST_CASE( "istream methods work", "[istream]" ) {
     std::string s = "123 12\n1";

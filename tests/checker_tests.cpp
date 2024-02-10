@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "strategy.h"
+#include <strategy.h>
 
 
 TEST_CASE( "checker works", "[checker]" ) {

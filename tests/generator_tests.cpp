@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "strategy.h"
+#include <strategy.h>
 
 std::string read_file(const std::string& path) {
     std::ifstream t(path);
